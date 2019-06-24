@@ -20,7 +20,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('flight', 'FlightController', ['except' => ['edit', 'update', 'destroy']]);   
-//Route::get('/reviews','ReviewController@index'); 
-//Route::get('/reviews/review_create', 'ReviewController@create');//->middleware('auth');
- Route::resource('reviews','ReviewController');
+Route::resource('reviews','ReviewController');
+// Custom route for deleting a review
+Route::get('reviews/destroy/{reviewId}', 'ReviewController@destroy');
 Route::get('admin','AdminController');

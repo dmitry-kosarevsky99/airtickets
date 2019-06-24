@@ -22,7 +22,7 @@ class ReviewController extends Controller
     {
         $reviews = DB::table('reviews')
         ->join('users','users.id','reviews..user_id')
-        ->select('first_name','last_name','review_text','reviews.created_at')
+        ->select('first_name','last_name','review_text','reviews.created_at','user_id','review_id')
         ->get();
         return view('reviews',array('reviews' => $reviews));
     }
@@ -77,7 +77,10 @@ class ReviewController extends Controller
      */
     public function edit($id)
     {
-        //
+        $review = DB::table('reviews')
+        ->where('review_id','=',$id)
+        ->get();
+        return view('review_edit', array('review'=>$review));
     }
 
     /**
@@ -89,7 +92,8 @@ class ReviewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Review::where('review_id','=',$id)->update(array('review_text'=>$request->review_text));
+        return redirect('/reviews');
     }
 
     /**
@@ -100,6 +104,7 @@ class ReviewController extends Controller
      */
     public function destroy($id)
     {
-        //
+       Review::where('review_id','=',$id)->delete();
+       return redirect('/reviews');  
     }
 }
