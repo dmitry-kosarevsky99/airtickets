@@ -7,7 +7,7 @@
             
         </div>
         <div class="col-md-8 rounded ">
-            <a href="{{ url('reviews/create') }}">Leave Your review</a>
+            <a class="btn btn-primary mb-2" href="{{ url('reviews/create') }}">Leave Your review</a>
             @foreach($reviews as $review)
             <div class="card mb-1">
                 <div class="card-body">
@@ -22,10 +22,11 @@
                                 <span>{{ $review->review_text }} </span>
                             </div>
                             <div class="col-md-2">
-                                @if( Auth::user()->id == $review->user_id || Auth::user()->role == 2)
+                                @guest
+                                @else( Auth::user()->id == $review->user_id || Auth::user()->role == 2)
                                 <a class="btn btn-small btn-outline-primary" href="{{ URL::to('/reviews/'.$review->review_id.'/edit') }}">Edit</a>
                                 <a class="btn btn-small btn-outline-primary" href="{{ URL::to('/reviews/destroy/'.$review->review_id) }}">Delete</a>
-                                @endif
+                                @endguest
                             </div>
                         </div>
                     </div>

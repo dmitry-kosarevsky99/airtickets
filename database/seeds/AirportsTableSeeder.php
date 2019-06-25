@@ -1,6 +1,6 @@
 <?php
 
-use App\Airport;
+use Airtickets\Airport;
 use Illuminate\Database\Seeder;
 
 class AirportsTableSeeder extends Seeder
