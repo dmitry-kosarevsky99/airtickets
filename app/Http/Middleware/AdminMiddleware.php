@@ -15,7 +15,7 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!(Auth::check() && Auth::user()->isAdmin())) // if user is not authenticated and user is not admin
+        if (!(Auth::check() && Auth::user()->isAdmin()) ) // if user is not authenticated and user is not admin
         {
             return redirect('home')->withErrors('This page is ONLY for administrators');
         }

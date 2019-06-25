@@ -26,4 +26,6 @@ Route::get('reviews/destroy/{reviewId}', 'ReviewController@destroy');
 Route::resource('tickets','TicketController');
 Route::get('tickets/create','TicketController@createUserTicket')->middleware('auth');
 Route::post('tickets/create','TicketController@storeUserTicket');
+Route::get('/user_tickets_show/{userID}','TicketController@showUserTickets');
+Route::get('/ticket_create','TicketController@create');
 Route::get('admin','AdminController');

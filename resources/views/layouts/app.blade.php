@@ -57,6 +57,14 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ action('TicketController@showUserTickets',['id'=>Auth::user()->id]) }}">
+                                        Purchase history
+                                    </a>
+                                    @if( !Auth::guest() && Auth::user()->isAdmin() )
+                                    <a class="dropdown-item" href="{{ action('TicketController@create') }}">
+                                        Add new ticket
+                                    </a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

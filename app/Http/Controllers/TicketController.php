@@ -19,6 +19,7 @@ class TicketController extends Controller
     public function _construct()
     {
         $this->middleware('auth',['except' =>['show']]);
+        $this->middleware('admin')->only(['create','store','edit','update','destroy']);
     }
     public function index()
     {
@@ -30,9 +31,12 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        
+        $flights = DB::table('flights')
+        ->get();
+        dd($flights);
+        return view('ticket_create');
     }
     public function createUserTicket(Request $request)
     {
@@ -57,6 +61,22 @@ class TicketController extends Controller
         $userTicket->save();
         return redirect()->action('FlightController@index')->with('message','Ticket have been purchased, have a nice flight');
     }
+    public function showUserTickets($id)
+    {
+        $info = DB::table('user_tickets')
+        ->join('users','users.id','user_tickets.user_id')
+        ->join('tickets','tickets.ticket_id','user_tickets.ticket_id')
+        ->join('flights','tickets.flight_id','flights.flight_id')
+        ->join('planes','flights.flight_plane_id','planes.plane_id')
+        ->join('airports as s','s.airport_id','source_airport_id')
+        ->join('airports as d','d.airport_id','destination_airport_id')
+        ->select('depart_date_time','arrival_date_time','s.city as source','d.city as destination','price','plane_name','ticket_class',
+        'tickets.description','s.address as Airport_Address','s.airport_name','cell_amount','tickets.ticket_id','ticket_cell')
+        ->where('user_id','=',$id)
+        ->get();
+        //dd($info);
+        return view('user_tickets_show',array('info'=>$info));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -66,7 +86,7 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -91,8 +111,9 @@ class TicketController extends Controller
         $CellArray = array();
         for($i = 0;$i < $ticket[0]->cell_amount;$i++)
         {   
-            $OccupiedSeat = UserTicket::where('ticket_id','=',$id)->where('ticket_cell','=',$i+1);
-            if( $OccupiedSeat == null ) continue;
+            $OccupiedSeat = UserTicket::where('ticket_id','=',$id)
+            ->Where('ticket_cell','=',$i+1)->exists();
+            if( $OccupiedSeat != null ) continue; // if there is no such record in pivot table with this ticket id AND ticket cell then not include this in array
             else $CellArray[$i] = $i+1;
         }
         $request->session()->put('ticket',$ticket);
