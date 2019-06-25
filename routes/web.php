@@ -23,4 +23,7 @@ Route::resource('flight', 'FlightController', ['except' => ['edit', 'update', 'd
 Route::resource('reviews','ReviewController');
 // Custom route for deleting a review
 Route::get('reviews/destroy/{reviewId}', 'ReviewController@destroy');
+Route::resource('tickets','TicketController');
+Route::get('tickets/create','TicketController@createUserTicket')->middleware('auth');
+Route::post('tickets/create','TicketController@storeUserTicket');
 Route::get('admin','AdminController');

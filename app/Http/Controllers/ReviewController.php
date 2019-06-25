@@ -4,6 +4,7 @@ namespace Airtickets\Http\Controllers;
 
 use Airtickets\Review;
 use Illuminate\Http\Request;
+use Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,15 +47,13 @@ class ReviewController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $rules = $rules = array(
-            'review_text' => 'required|max:191',
-        );
-        $this->validate($request,$rules);
+        Validator::make($request->all(),[
+            'review_text' => 'required|max:191'
+        ])->validate();
         $review = new Review();
         $review->review_text = $data['review_text'];
         $review->user_id = Auth::user()->id;
         $review->save();
-        //$review->save;
         return redirect()->action('ReviewController@index', array($review->id));
     }
 

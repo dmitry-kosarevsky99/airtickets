@@ -19,7 +19,7 @@ class FlightController extends Controller
         ->join('airports as s','s.airport_id','source_airport_id')
         ->join('airports as d','d.airport_id','destination_airport_id')
         ->join('tickets','tickets.flight_id','flights.flight_id')
-        ->select('depart_date_time','arrival_date_time','s.city as source','d.city as destination','price')
+        ->select('depart_date_time','arrival_date_time','s.city as source','d.city as destination','price','ticket_id')
         ->get();
         return view('flights',array('flights' => $flights));
     }

@@ -2,6 +2,11 @@
 @section('content')
 <div class="container">
     <div class="row">
+    @if(session()->has('message'))
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+    @endif
         <div class="col-8">
             <form class="form-inline justify-content-center mb-3">
                 <div class="form-group">
@@ -63,14 +68,21 @@
                 <div class="list-group-item">
                     @foreach ( $flights as $flight )
                     <div class="card">
-                        <div class="card-body">
-                        <p class="card-text">
-                            <p class="card-title">{{$flight->source}}</p>
-                            <p>{{$flight->destination}}</p>
-                            <p>{{$flight->depart_date_time}}</p>
-                            <p>{{$flight->arrival_date_time}}</p>
-                            <p>{{$flight->price}} EUR</p>
-                        </p>
+                        <div class="row">                    
+                            <div class="card-body">
+                                <div class="col-sm-6">
+                                    
+                                        <p class="card-title">{{$flight->source}}</p>
+                                        <p>{{$flight->destination}}</p>
+                                        <p>Depart at:  {{$flight->depart_date_time}}</p>
+                                        <p>Arrives at {{$flight->arrival_date_time}}</p>
+                                        <p>{{$flight->price}} EUR</p>
+                                    
+                                </div>    
+                                <div class="col-sm-4 float-right">
+                                    <a class="btn btn-primary" href="{{ action('TicketController@show', ['id'=>$flight->ticket_id]) }}">More</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     @endforeach

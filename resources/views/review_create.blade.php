@@ -14,12 +14,16 @@
                     <div class="row">
                     {!! Form::label('review_text','Review') !!}
                     </div>
-                    {!! Form::textarea('review_text','',['class'=>'form-control'.($errors->has('review_text')? 'is-invalid':'')]) !!}
-                    @if ($errors->has('review_text'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('review_text') }}</strong>
-                        </span>
-                    @endif
+                    {!! Form::textarea('review_text','',['class'=>'form-control']) !!}
+                    @if( $errors->get('review_text') )
+                    <div class="alert alert danger">
+                         <ol>
+                         @foreach($errors->get('review_text') as $message)
+                            <li>{{ $message }} </li>
+                         @endforeach
+                         </ol>
+                    </div>
+                @endif
                     <div class="row">
                     {!! Form::submit('Publish', ['class'=>'btn btn-primary mt-2'])!!}
                     </div>
