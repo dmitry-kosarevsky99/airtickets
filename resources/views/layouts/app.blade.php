@@ -64,6 +64,12 @@
                                     <a class="dropdown-item" href="{{ action('TicketController@create') }}">
                                         Add new ticket
                                     </a>
+                                    <a class="dropdown-item" href="{{ action('TicketController@index') }}">
+                                        Show all tickets 
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        Show all flights
+                                    </a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

@@ -1,9 +1,11 @@
 @extends('layouts.app')
 @section('content')
+
+<div class="container">
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-    {!! Form::open(array('action' => 'TicketController@store')) !!}
+    {!! Form::open(array('url'=>route('updateTicket',['id' => $ticket[0]->ticket_id]), 'method' => 'PUT' ))!!}
     <div class = "ml-4">
     {!! Form::label('source_airport','Select source airport') !!}
     {!! Form::select('source_airport',[null => 'Source airport'] + $airport, ['class' => 'form-control ml-6']) !!}
@@ -70,9 +72,10 @@
         @endif
     </div>
    
-    {!! Form::submit('Create ticket',['class'=>'btn btn-primary mt-4']) !!}
+    {!! Form::submit('Apply changes',['class'=>'btn btn-primary mt-4']) !!}
     {!! Form::close() !!}
     </div>
     <div class="col-md-4"></div>
+</div>
 </div>
 @endsection

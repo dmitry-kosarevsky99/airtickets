@@ -4,6 +4,8 @@ namespace Airtickets\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Airtickets\Ticket;
+use Airtickets\Flight;
+use Airtickets\Airport;
 use Validator;
 use Airtickets\UserTicket;
 use Illuminate\Support\Facades\DB;
@@ -19,11 +21,12 @@ class TicketController extends Controller
     public function _construct()
     {
         $this->middleware('auth',['except' =>['show']]);
-        $this->middleware('admin')->only(['create','store','edit','update','destroy']);
+        $this->middleware('admin')->only('create');
     }
     public function index()
     {
-        //
+        $tickets = Ticket::all()->toArray();
+        return view('tickets_show_admin',array('tickets'=>$tickets));
     }
 
     /**
@@ -33,10 +36,13 @@ class TicketController extends Controller
      */
     public function create()
     {
-        $flights = DB::table('flights')
+        $airports = DB::table('airports')
+        ->select('airport_name')
         ->get();
-        dd($flights);
-        return view('ticket_create');
+        $air = $airports->pluck('airport_name');
+
+        //dd( $air->toArray() );
+        return view('ticket_create',array('airport'=>$air->toArray()) ) ;
     }
     public function createUserTicket(Request $request)
     {
@@ -86,7 +92,24 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $data = $request->all();
+        Validator::make( $request->all(),[
+            'source_airport' => 'required',
+            'destination_airport' => 'required',
+            'ticket_class' => 'required|integer|min:1|max:2',
+            'price' => 'required|numeric',
+            'desc' => 'required|max:191',
+        ])->validate();
+        $ticket = new Ticket();
+        $ticket->ticket_class = $data['ticket_class'];
+        $ticket->price = $data['price'];
+        $ticket->description = $data['desc'];
+        $flight_id = Flight::where('source_airport_id',$data['source_airport']+1)
+        ->where('destination_airport_id',$data['destination_airport']+1)
+        ->pluck('flight_id')->toArray();
+        $ticket->flight_id = $flight_id[0];
+        $ticekt->save();
+        return redirect()->action('TicketController@index')->with('Ticket added!');
     }
 
     /**
@@ -130,7 +153,15 @@ class TicketController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ticket = DB::table('tickets')
+        ->where('ticket_id','=',$id)
+        ->get();
+        $airports = DB::table('airports')
+        ->select('airport_name')
+        ->get();
+        $air = $airports->pluck('airport_name');
+       // dd($ticket->toArray() );
+        return view('edit_ticket',array('ticket'=>$ticket->toArray(), 'airport' =>$air->toArray() ));
     }
 
     /**
@@ -142,7 +173,24 @@ class TicketController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        Validator::make( $request->all(),[
+            'source_airport' => 'required',
+            'destination_airport' => 'required',
+            'ticket_class' => 'required|integer|min:1|max:2',
+            'price' => 'required|numeric',
+            'desc' => 'required|max:191',
+        ])->validate();
+        $flight_id = Flight::where('source_airport_id',$data['source_airport']+1)
+        ->where('destination_airport_id',$data['destination_airport']+1)
+        ->pluck('flight_id')->toArray();
+        Ticket::where('ticket_id','=',$id)
+        ->update(array('ticket_class'=>$data['ticket_class'],
+        'price' => $data['price'],
+        'description'=> $data['desc'],
+        'flight_id'=>$flight_id[0]
+        ));
+        return redirect()->action('TicketController@index');
     }
 
     /**
@@ -153,6 +201,7 @@ class TicketController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Ticket::where('ticket_id','=',$id)->delete();
+        return redirect()->action('TicketController@index');
     }
 }

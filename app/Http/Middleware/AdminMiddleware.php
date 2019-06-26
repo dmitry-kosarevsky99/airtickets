@@ -3,6 +3,7 @@
 namespace Airtickets\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
@@ -17,8 +18,8 @@ class AdminMiddleware
     {
         if (!(Auth::check() && Auth::user()->isAdmin()) ) // if user is not authenticated and user is not admin
         {
-            return redirect('home')->withErrors('This page is ONLY for administrators');
+            return redirect('/');
         }
-        return $next($request);
+        else return $next($request);
     }
 }
