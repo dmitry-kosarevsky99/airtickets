@@ -10,6 +10,7 @@
                 <div class="form-group">
                     
                     {!! Form::open(array('url'=>route('reviews.update',['id' => $review[0]->review_id]), 'method' => 'PUT' )) !!}
+                    {!! csrf_field() !!}
                     <div class="row">
                     {!! Form::label('review_text','Review') !!}
                     </div>

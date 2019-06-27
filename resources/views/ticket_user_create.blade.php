@@ -33,6 +33,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
             {!! Form::open(array('action' => 'TicketController@storeUserTicket')) !!}
+            {!! csrf_field() !!}
             <div class = "ml-4">
             {!! Form::label('cell','Select your cell') !!}
             {!! Form::select('cell',[null => 'Cell'] + $cells, ['class' => 'form-control ml-6']) !!}

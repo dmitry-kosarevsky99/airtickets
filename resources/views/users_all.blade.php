@@ -32,8 +32,8 @@
             <a class="btn btn-outline-primary" href="{{ action('AdminController@ban',['id' => $user->id]) }}">Ban</a>
             @else
             {!! Form::open( array('url'=>route('unban',['id' => $user->id]), 'method' => 'PUT'  )) !!}
-            {{ Form::hidden('user_id', $user->id) }}
             {!! csrf_field() !!}
+            {{ Form::hidden('user_id', $user->id) }}
             {!! Form::submit('Unban', ['class'=>'btn btn-primary'])!!}
             {!! Form::close() !!}
             @endif

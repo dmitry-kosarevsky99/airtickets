@@ -110,7 +110,7 @@ class TicketController extends Controller
         if($flight_id == null) return redirect()->action('TicketController@index')->with('message','Chosen flight does not exist, create it first');
         else{
         $ticket->flight_id = $flight_id[0];
-        $ticekt->save();
+        $ticket->save();
         return redirect()->action('TicketController@index')->with('message','Ticket added!');
         }
     }

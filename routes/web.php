@@ -44,3 +44,4 @@ Route::get('/users_all','AdminController@showAllUsers')->middleware('admin');
 Route::get('/users_all/ban/{userID}','AdminController@ban')->middleware('admin');
 Route::put('/users_all/ban/{userID}','AdminController@store')->name('storeBan')->middleware('admin');
 Route::put('/users_all/{userID}','AdminController@unban')->name('unban')->middleware('admin');
+Route::put('/','FlightController@search')->name('search');

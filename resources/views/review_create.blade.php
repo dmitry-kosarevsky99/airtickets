@@ -11,6 +11,7 @@
                 <div class="form-group">
                     
                     {!! Form::open(['action'=> 'ReviewController@store']) !!}
+                    {!! csrf_field() !!}
                     <div class="row">
                     {!! Form::label('review_text','Review') !!}
                     </div>

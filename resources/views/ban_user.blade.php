@@ -5,6 +5,7 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
         {!! Form::open(array( 'url' => route('storeBan', ['id' => $user[0]->id ]),'method' =>'PUT'  )) !!}
+        {!! csrf_field() !!}
         <div class = "ml-4 mt-4">
         {!! Form::label('banned_until','Ban Until') !!}
           {!! Form::text('banned_until',null, [

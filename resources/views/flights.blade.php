@@ -8,17 +8,13 @@
     </div>
     @endif
         <div class="col-8">
-            <form class="form-inline justify-content-center mb-3">
-                <div class="form-group">
-                    <label for="from"></label>
-                    <input type="search" class="form-control" id="from" placeholder="From">
-                </div>
-                <div class="form-group">
-                    <label for="To"></label>
-                    <input type="search" class="form-control" id="To" placeholder="To">
-                </div>
-                <button type="submit" class="btn btn-default">Search</button>
-            </form>
+            {!! Form::open(array('url'=>route('search'), 'method' => 'PUT','class'=>'form-inline justify-content-center mb-3' )) !!}
+            {!! Form::text('from','',['class'=> 'form-control','placeholder'=>'From']) !!}
+            
+            {!! Form::text('to','',['class'=> 'form-control','placeholder'=>'To']) !!}
+            
+            {!! Form::submit('Search', ['class'=>'btn btn-primary mt-2']) !!}
+            {!! Form::close() !!}
         </div>
         <div class="col">
             <div class="form-inline justify-content-center">

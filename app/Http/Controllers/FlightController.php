@@ -26,6 +26,20 @@ class FlightController extends Controller
         ->get();
         return view('flights',array('flights' => $flights));
     }
+    public function search(Request $request)
+    {
+        $from = $request->get('from');
+        $to   = $request->get('to');
+        $flights = DB::table('flights')
+        ->join('airports as s','s.airport_id','source_airport_id')
+        ->join('airports as d','d.airport_id','destination_airport_id')
+        ->join('tickets','tickets.flight_id','flights.flight_id')
+        ->select('depart_date_time','arrival_date_time','s.city as source','d.city as destination','price','ticket_id')
+        ->where('s.city','=',$from)
+        ->where('d.city','like',$to)
+        ->get();
+        return view('flights')->with('flights', $flights);
+    }
 
     /**
      * Show the form for creating a new resource.

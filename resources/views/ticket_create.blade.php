@@ -4,6 +4,7 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
     {!! Form::open(array('action' => 'TicketController@store')) !!}
+    {!! csrf_field() !!}
     <div class = "ml-4">
     {!! Form::label('source_airport','Select source airport') !!}
     {!! Form::select('source_airport',[null => 'Source airport'] + $airport, ['class' => 'form-control ml-6']) !!}
