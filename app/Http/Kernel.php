@@ -36,6 +36,7 @@ class Kernel extends HttpKernel
             \Airtickets\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Airtickets\Http\Middleware\CheckBanned::class, // register CheckBan middlewarin groups in order to run this midd on every request
+            \Airtickets\Http\Middleware\Localization::class,
         ],
 
         'api' => [
@@ -62,6 +63,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \Airtickets\Http\Middleware\AdminMiddleware::class, // admin middleware
+        
     ];
 
     /**

@@ -7,7 +7,7 @@
             
         </div>
         <div class="col-md-8 rounded ">
-            <a class="btn btn-primary mb-2" href="{{ url('reviews/create') }}">Leave Your review</a>
+            <a class="btn btn-primary mb-2" href="{{ url('reviews/create') }}">{{ trans('trans.leaveRev') }}</a>
             @foreach($reviews as $review)
             <div class="card mb-1">
                 <div class="card-body">
@@ -24,8 +24,8 @@
                             <div class="col-md-2">
                                 @guest
                                 @else( Auth::user()->id == $review->user_id || Auth::user()->role == 2)
-                                <a class="btn btn-small btn-outline-primary" href="{{ URL::to('/reviews/'.$review->review_id.'/edit') }}">Edit</a>
-                                <a class="btn btn-small btn-outline-primary" href="{{ URL::to('/reviews/destroy/'.$review->review_id) }}">Delete</a>
+                                <a class="btn btn-small btn-outline-primary" href="{{ URL::to('/reviews/'.$review->review_id.'/edit') }}">{{ trans('trans.edit') }}</a>
+                                <a class="btn btn-small btn-outline-primary" href="{{ URL::to('/reviews/destroy/'.$review->review_id) }}">{{ trans('trans.delete') }}</a>
                                 @endguest
                             </div>
                         </div>

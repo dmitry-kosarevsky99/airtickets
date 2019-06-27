@@ -45,3 +45,4 @@ Route::get('/users_all/ban/{userID}','AdminController@ban')->middleware('admin')
 Route::put('/users_all/ban/{userID}','AdminController@store')->name('storeBan')->middleware('admin');
 Route::put('/users_all/{userID}','AdminController@unban')->name('unban')->middleware('admin');
 Route::put('/','FlightController@search')->name('search');
+Route::get('lang/{locale}', 'HomeController@lang');// route for language method

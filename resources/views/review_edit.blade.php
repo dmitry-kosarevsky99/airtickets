@@ -6,7 +6,7 @@
             
         </div>
         <div class="col-md-8 rounded ">
-            <p class="text-light bg-info text-center">Here you can leave a review about us</p>
+            <p class="text-light bg-info text-center">{{ trans('trans.leaveReview') }}</p>
                 <div class="form-group">
                     
                     {!! Form::open(array('url'=>route('reviews.update',['id' => $review[0]->review_id]), 'method' => 'PUT' )) !!}

@@ -34,12 +34,22 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="naw-item">
-                        <a class="nav-link" href="/reviews">Reviews</a>
+                        <a class="nav-link" href="/reviews"> {{ trans('trans.reviews') }} </a>
                         </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                    @php $locale = session()->get('locale'); @endphp
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Language <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="lang/en"> English</a>
+                                <a class="dropdown-item" href="lang/lv"> Latviski</a>
+                            </div>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -58,23 +68,23 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ action('TicketController@showUserTickets',['id'=>Auth::user()->id]) }}">
-                                        Purchase history
+                                        {{ trans('trans.purchHis') }}
                                     </a>
                                     @if( !Auth::guest() && Auth::user()->isAdmin() )
                                     <a class="dropdown-item" href="{{ action('TicketController@create') }}">
-                                        Add new ticket
+                                        {{ trans('trans.addTick') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ action('TicketController@index') }}">
-                                        Show all tickets 
+                                    {{ trans('trans.showAllTick') }} 
                                     </a>
                                     <a class="dropdown-item" href="{{ action('FlightController@showAdmin') }}">
-                                        Show all flights
+                                    {{ trans('trans.showAllFlights') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ action('FlightController@create') }}">
-                                        Add new flight
+                                    {{ trans('trans.addNewFlight') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ action('AdminController@showAllUsers') }}">
-                                        Show all users
+                                    {{ trans('trans.showAllUsers') }}
                                     </a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"

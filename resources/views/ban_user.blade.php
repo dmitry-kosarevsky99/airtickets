@@ -7,7 +7,7 @@
         {!! Form::open(array( 'url' => route('storeBan', ['id' => $user[0]->id ]),'method' =>'PUT'  )) !!}
         {!! csrf_field() !!}
         <div class = "ml-4 mt-4">
-        {!! Form::label('banned_until','Ban Until') !!}
+        {!! Form::label('banned_until', trans('trans.attributes.banUNTIL')) !!}
           {!! Form::text('banned_until',null, [
             'class' => 'form-control ',
             'placeholder'    => 'yyyy-mm-dd hh:mm:ss '
@@ -22,7 +22,7 @@
                 </div>
             @endif
         </div>
-        {!! Form::submit('Ban User',['class'=>'btn btn-primary mt-4']) !!}
+        {!! Form::submit( 'Ban',['class'=>'btn btn-primary mt-4']) !!}
         {!! Form::close() !!}
         </div>
         </div>

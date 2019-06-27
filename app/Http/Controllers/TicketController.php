@@ -19,7 +19,7 @@ class TicketController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function _construct()
-    {
+    {   //
         $this->middleware('auth',['except' =>['show']]);
         $this->middleware('admin')->only('create');
     }
