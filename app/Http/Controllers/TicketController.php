@@ -107,9 +107,12 @@ class TicketController extends Controller
         $flight_id = Flight::where('source_airport_id',$data['source_airport']+1)
         ->where('destination_airport_id',$data['destination_airport']+1)
         ->pluck('flight_id')->toArray();
+        if($flight_id == null) return redirect()->action('TicketController@index')->with('message','Chosen flight does not exist, create it first');
+        else{
         $ticket->flight_id = $flight_id[0];
         $ticekt->save();
-        return redirect()->action('TicketController@index')->with('Ticket added!');
+        return redirect()->action('TicketController@index')->with('message','Ticket added!');
+        }
     }
 
     /**
@@ -184,6 +187,8 @@ class TicketController extends Controller
         $flight_id = Flight::where('source_airport_id',$data['source_airport']+1)
         ->where('destination_airport_id',$data['destination_airport']+1)
         ->pluck('flight_id')->toArray();
+        if($flight_id == null) return redirect()->action('TicketController@index')->with('message','Chosen flight does not exist, create it first');
+        else {
         Ticket::where('ticket_id','=',$id)
         ->update(array('ticket_class'=>$data['ticket_class'],
         'price' => $data['price'],
@@ -191,6 +196,7 @@ class TicketController extends Controller
         'flight_id'=>$flight_id[0]
         ));
         return redirect()->action('TicketController@index');
+            }
     }
 
     /**

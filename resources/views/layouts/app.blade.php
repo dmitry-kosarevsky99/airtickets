@@ -67,8 +67,14 @@
                                     <a class="dropdown-item" href="{{ action('TicketController@index') }}">
                                         Show all tickets 
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ action('FlightController@showAdmin') }}">
                                         Show all flights
+                                    </a>
+                                    <a class="dropdown-item" href="{{ action('FlightController@create') }}">
+                                        Add new flight
+                                    </a>
+                                    <a class="dropdown-item" href="{{ action('AdminController@showAllUsers') }}">
+                                        Show all users
                                     </a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"

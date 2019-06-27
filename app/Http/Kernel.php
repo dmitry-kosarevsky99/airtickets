@@ -35,6 +35,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Airtickets\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Airtickets\Http\Middleware\CheckBanned::class, // register CheckBan middlewarin groups in order to run this midd on every request
         ],
 
         'api' => [

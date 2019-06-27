@@ -4,7 +4,11 @@
 <div class="container">
 <div class="text-center  bg-primary card-title " style="max-width: 45.5rem;margin-left:12rem;">Tickets</div> 
     <div class="row">
-    
+    @if(session()->has('message'))
+    <div class="alert alert-info">
+        {{ session()->get('message') }}
+    </div>
+    @endif
     @foreach( $tickets as $ticket)
         <div class="col-lg-2"></div>
         <div class="col-lg-8">
